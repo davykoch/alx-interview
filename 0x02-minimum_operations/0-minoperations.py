@@ -6,25 +6,27 @@ only “Copy All” and “Paste” operations. """
 
 def minOperations(n):
     """
-    Returns an integer
-    If n is impossible to achieve, return 0
+    Calculate the fewest number of operations needed to result
+    in exactly n 'H' characters.
+
+    Parameters:
+    n (int): The target number of 'H' characters.
+
+    Returns:
+    int: The minimum number of operations needed to achieve
+    n 'H' characters or 0 if n is impossible.
     """
 
     if n <= 1:
-        return n
+        return 0
 
     operations = 0
-    clipboard = 0
-    i = 2
+    factor = 2
 
-    while i <= n:
-        while n % i == 0:
-            clipboard = i
-            n //= i
-            operations += 1
-
-        i += 1
-
-    operations += n
+    while n > 1:
+        while n % factor == 0:
+            operations += factor
+            n //= factor
+        factor += 1
 
     return operations
