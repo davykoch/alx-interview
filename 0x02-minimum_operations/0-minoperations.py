@@ -15,15 +15,17 @@ def minOperations(n):
 
     operations = 0
     clipboard = 0
+    max_factor = n
 
-    for i in range(2, n + 1):
+    for i in range(2, int(n ** 0.5) + 1):
         if n % i == 0:
-            clipboard = i
-            operations += n // i
-            break
+            clipboard = max(clipboard, i)
+            max_factor = n // i
 
-    while i < n:
-        i += clipboard
-        operations += 1
+    operations += max_factor
+
+    while max_factor > 1:
+        operations += max_factor
+        max_factor //= clipboard
 
     return operations
