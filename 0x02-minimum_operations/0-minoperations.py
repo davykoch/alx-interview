@@ -19,13 +19,11 @@ def minOperations(n):
 
     for i in range(2, int(n ** 0.5) + 1):
         if n % i == 0:
-            clipboard = max(clipboard, i)
+            clipboard = i
             max_factor = n // i
+            operations += max_factor
 
-    operations += max_factor
-
-    while max_factor > 1:
+    if max_factor > 1:
         operations += max_factor
-        max_factor //= clipboard
 
     return operations
