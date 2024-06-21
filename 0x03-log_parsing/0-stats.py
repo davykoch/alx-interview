@@ -34,8 +34,8 @@ def parse_line(line):
         or (None, None) if the line is invalid.
     """
     pattern = (
-        r'(\d+\.\d+\.\d+\.\d+) - '
-        r'\[(.*?)\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)'
+        r'^(\d+\.\d+\.\d+\.\d+) - '
+        r'\[(.*?)\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)$'
     )
     match = re.match(pattern, line)
     if match:
@@ -51,13 +51,15 @@ def main():
     total_size = 0
     line_count = 0
     status_codes = defaultdict(int)
+    valid_codes = {200, 301, 400, 401, 403, 404, 405, 500}
 
     try:
         for line in sys.stdin:
             status, file_size = parse_line(line.strip())
-            if status and file_size:
+            if status is not None and file_size is not None:
+                if status in valid_codes:
+                    status_codes[status] += 1
                 total_size += file_size
-                status_codes[status] += 1
                 line_count += 1
 
                 if line_count % 10 == 0:
