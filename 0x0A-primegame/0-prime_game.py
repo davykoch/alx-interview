@@ -16,61 +16,41 @@ def isWinner(x, nums):
         str or None: The name of the player that won the most rounds,
                 or None if the winner cannot be determined.
     """
-    def is_prime(n):
-        """
-        Checks if a number is prime.
-        """
-        if n <= 1:
-            return False
-        for i in range(2, int(n ** 0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
+    if not nums or x < 1:
+        return None
 
     def sieve_of_eratosthenes(n):
         """
-        Implements the Sieve of Eratosthenes algorithm to
-                find all prime numbers up to n.
+        Implements the Sieve of Eratosthenes algorithm to find
+                all prime numbers up to n.
         """
-        primes = [True] * (n + 1)
-        primes[0] = primes[1] = False
+        is_prime = [True] * (n + 1)
+        is_prime[0] = is_prime[1] = False
 
         for i in range(2, int(n ** 0.5) + 1):
-            if primes[i]:
+            if is_prime[i]:
                 for j in range(i * i, n + 1, i):
-                    primes[j] = False
+                    is_prime[j] = False
 
-        return [i for i in range(n + 1) if primes[i]]
+        return [i for i in range(n + 1) if is_prime[i]]
 
-    if x == 0:
-        return None
+    max_num = max(nums)
+    primes = sieve_of_eratosthenes(max_num)
+    primes_count = [0] * (max_num + 1)
+
+    for i in range(1, max_num + 1):
+        primes_count[i] = primes_count[i - 1]
+        if i in primes:
+            primes_count[i] += 1
 
     maria_wins = 0
     ben_wins = 0
 
     for n in nums:
-        primes = sieve_of_eratosthenes(n)
-        available_primes = primes[:]
-
-        while available_primes:
-            if len(available_primes) == 1:
-                winner = "Maria"
-            elif len(available_primes) == 0:
-                winner = "Ben"
-            else:
-                first_prime = available_primes[0]
-                second_prime = available_primes[1]
-                if first_prime + second_prime > n:
-                    winner = "Maria"
-                else:
-                    winner = "Ben"
-
-            if winner == "Maria":
-                maria_wins += 1
-                available_primes.pop(0)
-            else:
-                ben_wins += 1
-                available_primes.pop(0)
+        if primes_count[n] % 2 == 1:
+            maria_wins += 1
+        else:
+            ben_wins += 1
 
     if maria_wins > ben_wins:
         return "Maria"
