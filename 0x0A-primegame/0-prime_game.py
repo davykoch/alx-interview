@@ -11,6 +11,7 @@ def is_prime(n):
             return False
     return True
 
+
 def sieve_of_eratosthenes(n):
     """
     Implements the Sieve of Eratosthenes algorithm to find all prime numbers up to n.
@@ -24,6 +25,7 @@ def sieve_of_eratosthenes(n):
                 primes[j] = False
 
     return [i for i in range(n + 1) if primes[i]]
+
 
 def isWinner(x, nums):
     """
