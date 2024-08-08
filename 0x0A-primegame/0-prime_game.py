@@ -14,7 +14,8 @@ def is_prime(n):
 
 def sieve_of_eratosthenes(n):
     """
-    Implements the Sieve of Eratosthenes algorithm to find all prime numbers up to n.
+    Implements the Sieve of Eratosthenes algorithm
+	to find all prime numbers up to n.
     """
     primes = [True] * (n + 1)
     primes[0] = primes[1] = False
@@ -36,7 +37,8 @@ def isWinner(x, nums):
         nums (list): The list of integers n for each round.
 
     Returns:
-        str or None: The name of the player that won the most rounds, or None if the winner cannot be determined.
+        str or None: The name of the player that won the most rounds,
+		or None if the winner cannot be determined.
     """
     maria_wins = 0
     ben_wins = 0
