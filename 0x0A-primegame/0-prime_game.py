@@ -44,6 +44,9 @@ def isWinner(x, nums):
         str or None: The name of the player that won the most rounds,
                 or None if the winner cannot be determined.
     """
+    if x == 0:
+        return None
+
     maria_wins = 0
     ben_wins = 0
 
@@ -52,20 +55,24 @@ def isWinner(x, nums):
         available_primes = primes[:]
 
         while available_primes:
-            if len(available_primes) % 2 == 1:
+            if len(available_primes) == 1:
                 winner = "Maria"
-            else:
+            elif len(available_primes) == 0:
                 winner = "Ben"
-
-            prime = available_primes.pop(0)
-            for i in range(prime, n + 1, prime):
-                if i in available_primes:
-                    available_primes.remove(i)
+            else:
+                first_prime = available_primes[0]
+                second_prime = available_primes[1]
+                if first_prime + second_prime > n:
+                    winner = "Maria"
+                else:
+                    winner = "Ben"
 
             if winner == "Maria":
                 maria_wins += 1
+                available_primes.pop(0)
             else:
                 ben_wins += 1
+                available_primes.pop(0)
 
     if maria_wins > ben_wins:
         return "Maria"
