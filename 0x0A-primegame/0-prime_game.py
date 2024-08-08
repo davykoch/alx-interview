@@ -41,8 +41,7 @@ def isWinner(x, nums):
         nums (list): The list of integers n for each round.
 
     Returns:
-        str or None: The name of the player that won the most rounds,
-                or None if the winner cannot be determined.
+        str or None: The name of the player that won the most rounds, or None if the winner cannot be determined.
     """
     maria_wins = 0
     ben_wins = 0
@@ -73,3 +72,4 @@ def isWinner(x, nums):
         return "Ben"
     else:
         return None
+		
