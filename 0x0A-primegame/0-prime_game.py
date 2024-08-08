@@ -1,36 +1,4 @@
 #!/usr/bin/python3
-"""
-0-prime_game module
-"""
-
-
-def is_prime(n):
-    """
-    Checks if a number is prime.
-    """
-    if n <= 1:
-        return False
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-
-def sieve_of_eratosthenes(n):
-    """
-    Implements the Sieve of Eratosthenes algorithm
-        to find all prime numbers up to n.
-    """
-    primes = [True] * (n + 1)
-    primes[0] = primes[1] = False
-
-    for i in range(2, int(n ** 0.5) + 1):
-        if primes[i]:
-            for j in range(i * i, n + 1, i):
-                primes[j] = False
-
-    return [i for i in range(n + 1) if primes[i]]
-
 
 def isWinner(x, nums):
     """
@@ -41,9 +9,33 @@ def isWinner(x, nums):
         nums (list): The list of integers n for each round.
 
     Returns:
-        str or None: The name of the player that won the most rounds,
-                or None if the winner cannot be determined.
+        str or None: The name of the player that won the most rounds, or None if the winner cannot be determined.
     """
+    def is_prime(n):
+        """
+        Checks if a number is prime.
+        """
+        if n <= 1:
+            return False
+        for i in range(2, int(n ** 0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    def sieve_of_eratosthenes(n):
+        """
+        Implements the Sieve of Eratosthenes algorithm to find all prime numbers up to n.
+        """
+        primes = [True] * (n + 1)
+        primes[0] = primes[1] = False
+
+        for i in range(2, int(n ** 0.5) + 1):
+            if primes[i]:
+                for j in range(i * i, n + 1, i):
+                    primes[j] = False
+
+        return [i for i in range(n + 1) if primes[i]]
+
     if x == 0:
         return None
 
